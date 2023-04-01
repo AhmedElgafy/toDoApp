@@ -1,34 +1,50 @@
+// import { isFile } from '@babel/types'
+import React from 'react'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+const ToDoItems=()=>{
+  return(
+
+    <div className="toDoCreator toDoItem">
+    <div className='insideToDoItem'>
+      <div className='circle'></div>
+      <h4>Create a new todo...</h4>
+    </div>
+    <img src="../icon-cross.svg" alt="" />
+  </div>
+)
+}
+console.log("hi")
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [toDoList, setToDoList] = useState(["Jog around the park 3*","10 minutes meditation","Read for 1 hour"])
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>
+    <div className='container'>
+
+      <div className="header">
+        <h1>TODO</h1>
+        <img src="../icon-moon.svg" alt="" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="toDoCreator">
+        <div className='circle'></div>
+        <h4>Create a new todo...</h4>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+
+      {toDoList?<ToDoItems listData={toDoList}/>:null}
+
+
+      <div className="status toDoCreator">
+        <div className="inside">
+          <h4 className='active'>All</h4>
+          <h4>Active</h4>
+          <h4>Completed</h4>
+        </div>
+      </div>
     </div>
+    </>
   )
 }
 
