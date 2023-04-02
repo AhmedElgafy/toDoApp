@@ -3,7 +3,10 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import './App.css'
 const ToDoItem=(props)=>{
-  useEffect(()=>console.log("changed"),props.itemsLeft)
+  // useEffect(()=>console.log("changed"),props.itemsLeft)
+  const handelExit=(e)=>{
+    console.log(e.key)
+  }
   return(
     <>
       <div className="toDoCreator toDoItem">
@@ -11,7 +14,8 @@ const ToDoItem=(props)=>{
             <div className='circle'></div>
             <h4>{props.data}</h4>
           </div>
-          <img src="../icon-cross.svg" alt="" />
+          <img src="../icon-cross.svg" key={props.data} alt="" 
+          onClick={(e)=>handelExit(e)}/>
         </div>
     </>
   )
@@ -21,12 +25,11 @@ const ToDoItem=(props)=>{
 
 const ToDoItems=(props)=>{
   const [numOfItems,setNumOfItems]=useState(1)
-  useEffect(()=>console.log(55),[props.itemsLeft])
-  // console.log(props.dataList)
+  console.log(props.dataList)
   
   return(
       <>
-        {props.dataList?props.dataList:null}
+        {props.dataList.map((element)=>element)}
 
         <div className="toDoCreator status sm-font">
           <p>{props.itemsLeft} items left</p>
@@ -59,7 +62,7 @@ function App() {
     console.log(toDoList)
   }
   
-  useEffect(()=>console.log(itemsLeft),[itemsLeft]) 
+  // useEffect(()=>console.log(itemsLeft),[itemsLeft]) 
 
   return (
     <>
