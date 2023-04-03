@@ -34,6 +34,9 @@ body{
 /* margin-left:15px ;   */
   border:  hsl(236, 33%, 92%) solid 2px ;
   border-radius: 50%;
+  background-color: black;
+  background-image: no-repeat url("../icon-check.svg");
+  background-position: top;
 }
 .toDoCreator{
   display: flex;
