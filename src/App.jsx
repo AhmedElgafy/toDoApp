@@ -17,18 +17,27 @@ const ToDoItem=(props)=>{
     props.removeItemWithId(e.target.id)
   }
   const makeCheck=(e)=>{
+    // let imgScr=
+    // let circleBgColor=
+    console.log(e.target.children[0].src)
+    if(e.target.children[0].src=="../icon-check.svg"){
+      e.target.children[0].src=""
+      e.target.style.background=''
+      console.log(true)
+    }else{
+      e.target.children[0].src="../icon-check.svg"
+      e.target.style.background='linear-gradient(0deg, hsl(280, 87%, 65%) 0%, hsl(192, 100%, 67%) 100%)'
+      console.log(false)
+    }
     
-    e.target.style.backgroundImage="no-repeat url(../icon-check.svg)"
-    e.target.style.backgroundColor="black"
-    e.target.style.backgroundPosition="center"
-
-    console.log(e.target.style)
   }
   return(
     <>
       <div className="toDoCreator toDoItem" id={props.data}>
           <div className='insideToDoItem'>
-            <div className='circle 'onClick={makeCheck}></div>
+            <div className='circle 'onClick={makeCheck}>
+              <img src="" alt="" />
+            </div>
             <h4>{props.data}</h4>
           </div>
           <img key2={props.key2} src="../icon-cross.svg" id={props.key2} alt="" 

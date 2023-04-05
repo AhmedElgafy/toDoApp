@@ -34,9 +34,14 @@ body{
 /* margin-left:15px ;   */
   border:  hsl(236, 33%, 92%) solid 2px ;
   border-radius: 50%;
-  background-color: black;
-  background-image: no-repeat url("../icon-check.svg");
-  background-position: top;
+  /* background: linear-gradient(0deg, hsl(280, 87%, 65%) 0%, hsl(192, 100%, 67%) 100%); */
+  /* background-image: no-repeat url("../icon-check.svg"); */
+  /* background-position: top; */
+}
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .toDoCreator{
   display: flex;
