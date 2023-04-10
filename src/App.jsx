@@ -2,108 +2,35 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import './App.css'
-// const array = [2, 5, 9];
-
-
-// const index = array.indexOf(2);
-// // if (index > -1) { // only splice array when item is found
-//   array.splice(index, 1); // 2nd parameter means remove one item only
-// // }
-
-const ToDoItem=(props)=>{
-  const handelExit=(e)=>{
-    props.setItemsLeft(e=>e=e-1)
-    // console.log(e.target.id)
-    props.removeItemWithId(e.target.id)
-  }
-  const makeCheck=(e)=>{
-    // let imgScr=
-    // let circleBgColor=
-    console.log(e.target.children[0].src)
-    if(e.target.children[0].src=="../icon-check.svg"){
-      e.target.children[0].src=""
-      e.target.style.background=''
-      console.log(true)
-    }else{
-      e.target.children[0].src="../icon-check.svg"
-      e.target.style.background='linear-gradient(0deg, hsl(280, 87%, 65%) 0%, hsl(192, 100%, 67%) 100%)'
-      console.log(false)
-    }
-    
-  }
-  return(
-    <>
-      <div className="toDoCreator toDoItem" id={props.data}>
-          <div className='insideToDoItem'>
-            <div className='circle 'onClick={makeCheck}>
-              <img src="" alt="" />
-            </div>
-            <h4>{props.data}</h4>
-          </div>
-          <img key2={props.key2} src="../icon-cross.svg" id={props.key2} alt="" 
-          onClick={(e)=>handelExit(e)}
-          />
-        </div>
-    </>
-  )
-}
-
-
-
-const ToDoItems=(props)=>{
-  const [numOfItems,setNumOfItems]=useState(1)
-  // useEffect(()=>null,[numOfItems])
-  const clearzList=()=>{props.setToDoList([]);props.setItemsLeft(0)}
-  return(
-      <>
-        {props.dataList.map((element)=>element)}
-        <div className="toDoCreator status sm-font">
-          <p>{props.itemsLeft} items left</p>
-          <div className="inside">
-            <h4 className='active'>All</h4>
-            <h4>Active</h4>
-            <h4>Completed</h4>
-          </div>
-          <p onClick={clearzList}>Clear Completed</p>
-        </div>
-      </>
-  
-)
-}
-
-
-
-
+import ToDoItem from './toDoItem'
+import ToDoItems from './toDoItems'
 
 function App() {
+  let key=Math.random()
+
+  //------------------------states-------------------
   const [toDoList, setToDoList] = useState([])
   const [itemsLeft,setItemsLeft]=useState(0)
-  const [key,setKey]=useState(0)
-
-  const removeItemWithId=(key)=>{
-    //if key == element ---> get the index of element ------> and remove it 
-    for(let element of toDoList){
-        let index=toDoList.indexOf(element)
-        // console.log(key)
-        if(element.props.key2==key){
-          toDoList.splice(index,1)
-      }
-    }
-  }
   
+  
+  
+  //------------------------handlers-------------------
+  const removeItemWithId=(key)=>{
+    toDoList.map(ele=>{console.log(ele.key)}) 
+    const newList=toDoList.filter((element)=>element.props.key2!==key)
+    setToDoList(newList)
+  }
   
   const doIt=(e)=>{
     let data=e.target.value
     if(data){
-      let key2 =key
-      toDoList.push(<ToDoItem key2={key2} setItemsLeft={setItemsLeft} removeItemWithId={removeItemWithId} data={data} id={data}  />)
-      setKey(e=>e=e+1)
+      toDoList.push(<ToDoItem key={key} setItemsLeft={setItemsLeft} removeItemWithId={removeItemWithId} data={data} id={data}  />)
       setItemsLeft((e)=>e=e+1)
       e.target.value=""
     }
   }
 
-
+  //------------------------renderers------------------------------
   return (
     <>
     <div className='container'>
@@ -118,7 +45,7 @@ function App() {
         {/* <h4>Create a new todo...</h4> */}
       </div>
 
-      <ToDoItems setToDoList={setToDoList} dataList={toDoList} setItemsLeft={setItemsLeft} itemsLeft={itemsLeft}/>
+      <ToDoItems key={key} setToDoList={setToDoList} dataList={toDoList} setItemsLeft={setItemsLeft} itemsLeft={itemsLeft}/>
 
     </div>
     </>
