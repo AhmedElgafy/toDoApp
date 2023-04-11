@@ -16,19 +16,21 @@ function App() {
   
   //------------------------handlers-------------------
   const removeItemWithId=(key)=>{
-    toDoList.map(ele=>{console.log(ele.key)}) 
-    const newList=toDoList.filter((element)=>element.props.key2!==key)
+    toDoList.map(ele=>{console.log(ele.index)})
+    const newList=toDoList.filter((element)=>element.index!=key)
     setToDoList(newList)
+    console.log(newList) 
   }
   
   const doIt=(e)=>{
     let data=e.target.value
     if(data){
-      toDoList.push(<ToDoItem key={key} setItemsLeft={setItemsLeft} removeItemWithId={removeItemWithId} data={data} id={data}  />)
+      toDoList.push(<ToDoItem  setItemsLeft={setItemsLeft} removeItemWithId={removeItemWithId} index={key} data={data} id={data}  />)
       setItemsLeft((e)=>e=e+1)
       e.target.value=""
     }
   }
+  // console.log(key)
 
   //------------------------renderers------------------------------
   return (

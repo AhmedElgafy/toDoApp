@@ -2,6 +2,9 @@
 import { useState } from 'react'
 
 const ToDoItem=(props)=>{
+
+  // console.log(props.key)
+
     const makeCheck=(e)=>{
       
         if(e.target.style.background==''){
@@ -12,28 +15,35 @@ const ToDoItem=(props)=>{
           e.target.style.background=''
         }
     }
+
     const handelExit=(e)=>{
       props.setItemsLeft(e=>e=e-1)
-      // console.log(e.target.id)
-    //   props.removeItemWithId(e.target.id)
-      console.log(e.target)
+      let index=e.target.getAttribute("index")
+      console.log(index)
+      // console.log(props.removeItemWithId)
+      if(index){
+        props.removeItemWithId(index)
+      }
     }
+    // console.log(props.index)
     return(
       <>
-        <div className="toDoCreator toDoItem" key={props.key} id={props.data}>
+        <div className="toDoCreator toDoItem" 
+          onClick={(e)=>handelExit(e)}
+          key={props.key} id={props.data}>
+
             <div className='insideToDoItem'>
-              <div className='circle 'onClick={(e)=>makeCheck(e)}>
+              <div className='circle '>
                 <img src="" alt=""  />
               </div>
               <h4>{props.data}</h4>
             </div>
-            <div onClick={(e)=>handelExit(e)}>
 
                 <img 
                 src="../icon-cross.svg" 
-                key={5} alt="" 
+                index={props.index} 
+                alt="" 
                 />
-            </div>
           </div>
       </>
     )
