@@ -19,10 +19,11 @@ const ToDoItem=(props)=>{
     const handelExit=(e)=>{
       props.setItemsLeft(e=>e=e-1)
       let index=e.target.getAttribute("index")
-      console.log(index)
+      // console.log(index)
       // console.log(props.removeItemWithId)
       if(index){
         props.removeItemWithId(index)
+        console.log(e.target)
       }
     }
     // console.log(props.index)

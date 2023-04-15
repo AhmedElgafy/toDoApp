@@ -16,16 +16,22 @@ function App() {
   
   //------------------------handlers-------------------
   const removeItemWithId=(key)=>{
-    toDoList.map(ele=>{console.log(ele.index)})
-    const newList=toDoList.filter((element)=>element.index!=key)
+    
+    console.log("key is:",key)
+    // toDoList.map(ele=>console.log(key!=ele.props.index))
+    const newList=toDoList.filter(ele=>ele.props.index!=key)
+    console.log(newList)
     setToDoList(newList)
-    console.log(newList) 
+    // setToDoList(toDoList.filter(ele=>ele.props.index!=key))
   }
   
   const doIt=(e)=>{
     let data=e.target.value
     if(data){
-      toDoList.push(<ToDoItem  setItemsLeft={setItemsLeft} removeItemWithId={removeItemWithId} index={key} data={data} id={data}  />)
+      toDoList.push(<ToDoItem  setItemsLeft={setItemsLeft} 
+                        removeItemWithId={removeItemWithId}
+                        index={key}
+                          data={data} id={data}  />)
       setItemsLeft((e)=>e=e+1)
       e.target.value=""
     }
@@ -43,11 +49,14 @@ function App() {
       </div>
       <div className="toDoCreator">
         <div className='circle'></div>
-        <input type="text" onKeyDown={(e)=>e.key=="Enter"?doIt(e):null} placeholder='Create a new todo...' />
-        {/* <h4>Create a new todo...</h4> */}
+        <input type="text" 
+            onKeyDown={(e)=>e.key=="Enter"?doIt(e):null} 
+            placeholder='Create a new todo...' />
       </div>
 
-      <ToDoItems key={key} setToDoList={setToDoList} dataList={toDoList} setItemsLeft={setItemsLeft} itemsLeft={itemsLeft}/>
+      <ToDoItems key={key} setToDoList={setToDoList} 
+          dataList={toDoList} setItemsLeft={setItemsLeft} 
+          itemsLeft={itemsLeft}/>
 
     </div>
     </>
