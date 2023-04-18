@@ -2,15 +2,21 @@
 
 
 import { useState } from 'react'
-const ToDoItems=(props)=>{
-    const [numOfItems,setNumOfItems]=useState(1)
-    // useEffect(()=>null,[numOfItems])
-    const clearzList=()=>{props.setToDoList([]);props.setItemsLeft(0)}
+import ToDoItem from './toDoItem'
+
+
+const ToDoItems=({data,numOfItems})=>{
+    // const [numOfItems,setNumOfItems]=useState(numOfItems)
+    const clearzList=()=>{0}
+    console.log(numOfItems)
+
+
+
     return(
         <>
-          {props.dataList.map((element)=>element)}
+          {data.map(ele=><ToDoItem ele={ele} key={ele.id}/>)}
           <div className="toDoCreator status sm-font">
-            <p>{props.itemsLeft} items left</p>
+            <p> {numOfItems} items left</p>
             <div className="inside">
               <h4 className='active'>All</h4>
               <h4>Active</h4>

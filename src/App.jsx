@@ -6,7 +6,7 @@ import ToDoItem from './toDoItem'
 import ToDoItems from './toDoItems'
 
 function App() {
-  let key=Math.random()
+  
 
   //------------------------states-------------------
   const [toDoList, setToDoList] = useState([])
@@ -27,16 +27,18 @@ function App() {
   
   const doIt=(e)=>{
     let data=e.target.value
-    if(data){
-      toDoList.push(<ToDoItem  setItemsLeft={setItemsLeft} 
-                        removeItemWithId={removeItemWithId}
-                        index={key}
-                          data={data} id={data}  />)
-      setItemsLeft((e)=>e=e+1)
-      e.target.value=""
+    if(data)
+    {
+      setToDoList([...toDoList,{id:Math.random(),data:data,
+        active:true,
+        completed:false}])
     }
+    e.target.value=""
+    setItemsLeft(data.length)
+    // console.log(toDoList)
   }
-  // console.log(key)
+
+  // console.log(toDoList.length)
 
   //------------------------renderers------------------------------
   return (
@@ -54,9 +56,7 @@ function App() {
             placeholder='Create a new todo...' />
       </div>
 
-      <ToDoItems key={key} setToDoList={setToDoList} 
-          dataList={toDoList} setItemsLeft={setItemsLeft} 
-          itemsLeft={itemsLeft}/>
+      {toDoList.length!=0?<ToDoItems numOfItems={itemsLeft} data={toDoList}/>:null}
 
     </div>
     </>

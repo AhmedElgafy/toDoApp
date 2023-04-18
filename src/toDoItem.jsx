@@ -1,9 +1,9 @@
 
 import { useState } from 'react'
 
-const ToDoItem=(props)=>{
+const ToDoItem=({ele})=>{
 
-  // console.log(props.key)
+  
 
     const makeCheck=(e)=>{
       
@@ -16,33 +16,30 @@ const ToDoItem=(props)=>{
         }
     }
 
-    const handelExit=(e)=>{
+    const handelExit=(e)=>
+    {
       props.setItemsLeft(e=>e=e-1)
       let index=e.target.getAttribute("index")
-      // console.log(index)
-      // console.log(props.removeItemWithId)
+      
       if(index){
         props.removeItemWithId(index)
         console.log(e.target)
       }
     }
-    // console.log(props.index)
     return(
       <>
         <div className="toDoCreator toDoItem" 
-          onClick={(e)=>handelExit(e)}
-          key={props.key} id={props.data}>
+          onClick={(e)=>handelExit(e)}>
 
             <div className='insideToDoItem'>
               <div className='circle '>
                 <img src="" alt=""  />
               </div>
-              <h4>{props.data}</h4>
+              <h4>{ele.data}</h4>
             </div>
 
                 <img 
                 src="../icon-cross.svg" 
-                index={props.index} 
                 alt="" 
                 />
           </div>
