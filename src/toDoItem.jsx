@@ -12,6 +12,7 @@ const ToDoItem=(props)=>{
           e.target.style.background=''
         }
     }
+    let key=props.key
     const handelExit=(e)=>{
       props.setItemsLeft(e=>e=e-1)
       // console.log(e.target.id)
@@ -27,11 +28,10 @@ const ToDoItem=(props)=>{
               </div>
               <h4>{props.data}</h4>
             </div>
-            <div onClick={(e)=>handelExit(e)}>
-
+            <div onClick={(e)=>handelExit(e)} key="hi" style={{width:"15px",height:"15px"}}>
                 <img 
                 src="../icon-cross.svg" 
-                key={5} alt="" 
+                id={key} alt="icon-cross" 
                 />
             </div>
           </div>
