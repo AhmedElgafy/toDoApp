@@ -1,41 +1,77 @@
+import { useState, useEffect } from "react";
 
-import { useState } from 'react'
+const ToDoItem = ({
+  styling,
+  setStyling,
+  ele,
+  setItemsLeft,
+  data,
+  setToDoList,
+  removeItemWithId,
+}) => {
+  //------------------------handlers-------------------
+  const removeItem = (e) => {
+    setItemsLeft((e) => (e -= 1));
+    const newList = data.filter((item) => item.id !== ele.id);
+    setToDoList(newList);
+  };
 
-const ToDoItem=(props)=>{
-    const makeCheck=(e)=>{
-      
-        if(e.target.style.background==''){
-          // e.target.src=""
-          e.target.style.background='linear-gradient(0deg, hsl(280, 87%, 65%) 0%, hsl(192, 100%, 67%) 100%)'
-        }else{
-          // e.target.children[0].src="../icon-check.svg"
-          e.target.style.background=''
-        }
+  const toggleCheckMark = (e) => {
+    e.stopPropagation();
+    if (ele.completed) {
+      ele.completed = false;
+      ele.active = true;
+      e.target.style.background = "";
+      e.target.parentNode.children[1].style.textDecoration = "";
+      e.target.parentNode.children[1].style.color = "hsl(236, 9%, 61%)";
+    } else {
+      ele.active = false;
+      ele.completed = true;
+      e.target.style.background = `url("../icon-check.svg") center no-repeat,
+        linear-gradient(hsl(192, 100%, 67%),hsl(280, 87%, 65%))`;
+      e.target.parentNode.children[1].style.textDecoration = "line-through";
+      e.target.parentNode.children[1].style.color = "hsl(236deg 9% 61% / 61%)";
     }
-    let key=props.key
-    const handelExit=(e)=>{
-      props.setItemsLeft(e=>e=e-1)
-      // console.log(e.target.id)
-    //   props.removeItemWithId(e.target.id)
-      console.log(e.target)
-    }
-    return(
-      <>
-        <div className="toDoCreator toDoItem" key={props.key} id={props.data}>
-            <div className='insideToDoItem'>
-              <div className='circle 'onClick={(e)=>makeCheck(e)}>
-                <img src="" alt=""  />
-              </div>
-              <h4>{props.data}</h4>
-            </div>
-            <div onClick={(e)=>handelExit(e)} key="hi" style={{width:"15px",height:"15px"}}>
-                <img 
-                src="../icon-cross.svg" 
-                id={key} alt="icon-cross" 
-                />
-            </div>
-          </div>
-      </>
-    )
-  }
-  export default ToDoItem;
+  };
+  const handelExit = (e) => {
+    setItemsLeft((e) => (e = e - 1));
+    // console.log(e.target.id)
+    removeItem(e.target.id);
+    // console.log(e.target)
+  };
+  return (
+    <>
+      <div className={"toDoCreator toDoItem " + styling.inputStyle}>
+        <div className="insideToDoItem">
+          <div
+            className="circle"
+            onClick={(e) => toggleCheckMark(e)}
+            style={{
+              background: `${
+                ele.completed
+                  ? `url('../icon-check.svg') center no-repeat,
+                                                    linear-gradient(hsl(192, 100%, 67%),
+                                                    hsl(280, 87%, 65%))`
+                  : ""
+              }`,
+            }}
+          ></div>
+          <h4
+            style={{
+              textDecoration: `${ele.completed ? "line-through" : ""}`,
+              color: `${
+                ele.completed ? "hsl(236deg 9% 61% / 61%)" : "hsl(236, 9%, 61%)"
+              }`,
+            }}
+          >
+            {ele.data}
+          </h4>
+        </div>
+        <div onClick={(e) => handelExit(e)}>
+          <img src="../icon-cross.svg" key={5} alt="" />
+        </div>
+      </div>
+    </>
+  );
+};
+export default ToDoItem;
