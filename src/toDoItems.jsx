@@ -92,7 +92,12 @@ const ToDoItems = ({
           : viewList}
         <div className={"toDoCreator status sm-font " + styling.inputStyle}>
           <p className="item-left"> {numOfItems} items left</p>
-          <div id="statusMode" className="inside item-center insertPointerCru">
+          <div
+            id="statusMode"
+            className={
+              `inside  insertPointerCru item-center ` + styling.inputStyle
+            }
+          >
             {status.map((ele) => (
               <h4
                 key={ele.id}
