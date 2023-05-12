@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+let startIndex;
 
 const ToDoItem = ({
   styling,
@@ -16,6 +17,7 @@ const ToDoItem = ({
     setToDoList(newList);
   };
 
+  // console.log(ele, data);
   const toggleCheckMark = (e) => {
     e.stopPropagation();
     if (ele.completed) {
@@ -35,39 +37,63 @@ const ToDoItem = ({
   };
   const handelExit = (e) => {
     setItemsLeft((e) => (e = e - 1));
-    // console.log(e.target.id)
     removeItem(e.target.id);
-    // console.log(e.target)
   };
+  const onDragOverH = (e) => {
+    e.preventDefault();
+  };
+  const handelDragStart = (e) => {
+    startIndex = +e.target.getAttribute("data-index");
+    console.log(startIndex);
+  };
+  const onDropHandler = (e) => {
+    let endIndex = +e.target.getAttribute("data-index");
+    let newData = [...data];
+    let tem = data[startIndex];
+    newData[startIndex] = data[endIndex];
+    newData[endIndex] = tem;
+    setToDoList(newData);
+  };
+
   return (
     <>
-      <div className={"toDoCreator toDoItem " + styling.inputStyle}>
-        <div className="insideToDoItem">
+      <div
+        className={"toDoCreator toDoItem moveAble " + styling.inputStyle}
+        draggable="true"
+        onDragOver={onDragOverH}
+        onDragStart={handelDragStart}
+        data-index={data.indexOf(ele)}
+        onDrop={onDropHandler}
+      >
+        <div className="insideToDoItem" data-index={data.indexOf(ele)}>
           <div
-            className="circle"
+            className="circle insertPointerCru"
             onClick={(e) => toggleCheckMark(e)}
             style={{
               background: `${
                 ele.completed
                   ? `url('../icon-check.svg') center no-repeat,
-                                                    linear-gradient(hsl(192, 100%, 67%),
-                                                    hsl(280, 87%, 65%))`
+                linear-gradient(hsl(192, 100%, 67%),
+                hsl(280, 87%, 65%))`
                   : ""
               }`,
             }}
+            data-index={data.indexOf(ele)}
           ></div>
           <h4
+            className="moveAble"
             style={{
               textDecoration: `${ele.completed ? "line-through" : ""}`,
               color: `${
                 ele.completed ? "hsl(236deg 9% 61% / 61%)" : "hsl(236, 9%, 61%)"
               }`,
             }}
+            data-index={data.indexOf(ele)}
           >
             {ele.data}
           </h4>
         </div>
-        <div onClick={(e) => handelExit(e)}>
+        <div className="insertPointerCru" onClick={(e) => handelExit(e)}>
           <img src="../icon-cross.svg" key={5} alt="" />
         </div>
       </div>

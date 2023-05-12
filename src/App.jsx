@@ -12,7 +12,7 @@ function App() {
   //------------------------handlers-------------------
   useEffect(() => {
     setItemsLeft(toDoList.length);
-    console.log("changed");
+    // console.log("changed");
   }, [toDoList]);
 
   const togglingModes = (e) => {

@@ -114,6 +114,11 @@ const ToDoItems = ({
           </p>
         </div>
       </div>
+      <div>
+        <div className={`dragAndDrop toDoCreator ` + styling.inputStyle}>
+          Drag and drop to reorder list
+        </div>
+      </div>
     </>
   );
 };
